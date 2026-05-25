@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   title: "Sai Koushik Chowdary Thati | Full-Stack Software Engineer",
   description:
     "Portfolio of Sai Koushik Chowdary Thati, Full-Stack Software Engineer and B.Tech CSE student at IIIT Sri City.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
