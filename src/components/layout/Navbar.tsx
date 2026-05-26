@@ -76,9 +76,9 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/40 bg-[rgba(247,243,234,0.88)] backdrop-blur-lg">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-[rgba(5,5,7,0.82)] backdrop-blur-lg">
       <Container>
-        <div className="flex h-20 items-center justify-between gap-4">
+        <div className="flex h-[76px] items-center justify-between gap-4">
           <div className="flex w-40 items-center">
             <button
               type="button"
@@ -88,28 +88,42 @@ export function Navbar() {
                 window.history.replaceState(null, "", window.location.pathname);
               }}
             >
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-accent/35 bg-surface font-heading text-lg font-bold text-accent transition-all duration-200 group-hover:border-accent group-hover:bg-accent group-hover:text-white">
-                SK
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-[rgba(196,181,253,0.35)] bg-[rgba(255,255,255,0.04)] transition-all duration-200 hover:opacity-90">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="h-6 w-6">
+                  <defs>
+                    <linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#c4b5fd" />
+                      <stop offset="100%" stopColor="#7c3aed" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M21 11 C21 9.3 19.2 8 17 8 H15 C12.8 8 11 9.3 11 11 C11 12.7 12.8 14 15 14 H17 C19.2 14 21 15.3 21 17 C21 18.7 19.2 20 17 20 H15 C12.8 20 11 18.7 11 17"
+                    fill="none"
+                    stroke="url(#navLogoGrad)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </span>
             </button>
           </div>
 
           <nav className="hidden flex-1 items-center justify-center lg:flex">
-            <ul className="flex items-center gap-9 text-[15px] font-medium xl:gap-10">
+            <ul className="flex items-center gap-3 text-[14px] font-medium xl:gap-5">
               {navItems.map((item) => (
-                <li key={item.sectionId}>
+                <li key={item.sectionId} className="flex items-center">
                   <button
                     type="button"
                     className={cn(
-                      "group inline-flex items-center gap-2 transition-colors duration-200",
+                      "group inline-flex items-center px-3 py-1.5 rounded-lg transition-all duration-300 hover:bg-[rgba(196,181,253,0.06)] whitespace-nowrap",
                       activeSection === item.sectionId
-                        ? "text-accent"
-                        : "text-muted hover:text-text",
+                        ? "text-white font-semibold"
+                        : "text-[#a1a1aa] font-medium",
                     )}
                     onClick={() => scrollToSection(item.sectionId)}
                   >
-                    <span className="font-mono text-[13.5px] font-bold text-accent/75 group-hover:text-accent-warm transition-colors duration-200">{`> ${item.number}`}</span>
-                    <span>{item.label}</span>
+                    <span className="group-hover:text-[#c4b5fd] transition-colors duration-200 shrink-0">{item.label}</span>
                   </button>
                 </li>
               ))}
@@ -121,7 +135,7 @@ export function Navbar() {
               href={profile.resumeUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-12 px-6 items-center justify-center rounded-lg border border-accent/35 bg-surface font-heading text-sm font-bold text-accent transition-all duration-200 group-hover:border-accent group-hover:bg-accent group-hover:text-white"
+              className="inline-flex h-10 px-5 items-center justify-center rounded-full border border-[rgba(196,181,253,0.35)] bg-transparent font-heading text-xs font-bold text-[#f8fafc] transition-all duration-300 hover:bg-[#c4b5fd] hover:text-[#050507]"
             >
               Resume
             </a>
@@ -130,7 +144,7 @@ export function Navbar() {
           <button
             aria-expanded={isOpen}
             aria-label="Toggle navigation menu"
-            className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-accent/35 bg-surface text-accent transition-all duration-200 group-hover:border-accent group-hover:bg-accent group-hover:text-white lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[rgba(196,181,253,0.35)] bg-[rgba(255,255,255,0.04)] text-[#c4b5fd] transition-all duration-300 hover:opacity-90 lg:hidden"
             onClick={() => setIsOpen((value) => !value)}
             type="button"
           >
@@ -147,7 +161,7 @@ export function Navbar() {
         </div>
 
         {isOpen ? (
-          <div className="border-t border-border/40 pb-4 pt-3 lg:hidden">
+          <div className="border-t border-white/[0.08] pb-4 pt-3 lg:hidden px-2">
             <nav>
               <ul className="space-y-1">
                 {navItems.map((item) => (
@@ -155,33 +169,29 @@ export function Navbar() {
                     <button
                       type="button"
                       className={cn(
-                        "flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm transition",
+                        "flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-all duration-200",
                         activeSection === item.sectionId
-                          ? "text-accent bg-accent/[0.06]"
-                          : "text-muted hover:text-text hover:bg-surface",
+                          ? "text-white bg-[rgba(196,181,253,0.08)] font-semibold"
+                          : "text-[#a1a1aa] hover:text-white hover:bg-[rgba(196,181,253,0.04)] font-medium",
                       )}
                       onClick={() => {
                         scrollToSection(item.sectionId);
                         setIsOpen(false);
                       }}
                     >
-                      <span className="font-medium">{item.label}</span>
-                      <span className={cn(
-                        "font-mono text-xs font-bold transition-colors",
-                        activeSection === item.sectionId ? "text-accent-warm" : "text-accent/75"
-                      )}>{`> ${item.number}`}</span>
+                      <span>{item.label}</span>
                     </button>
                   </li>
                 ))}
               </ul>
             </nav>
 
-            <div className="mt-3 px-3">
+            <div className="mt-3">
               <a
                 href={profile.resumeUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex h-11 items-center justify-center rounded-lg border border-accent/35 bg-surface font-heading text-sm font-bold text-accent transition-all duration-200 hover:border-accent hover:bg-accent hover:text-white w-full"
+                className="flex h-10 items-center justify-center rounded-full border border-[rgba(196,181,253,0.35)] bg-transparent font-heading text-xs font-bold text-[#f8fafc] transition-all duration-300 hover:bg-[#c4b5fd] hover:text-[#050507] w-full"
               >
                 Resume
               </a>

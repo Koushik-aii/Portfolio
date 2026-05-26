@@ -22,7 +22,7 @@ export function SkillsSection() {
                   {group.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-border bg-surface px-4 py-2.5 text-sm font-medium text-text/88 transition duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/[0.04]"
+                      className="rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-2.5 text-sm font-medium text-[#a1a1aa] transition duration-300 hover:-translate-y-0.5 hover:border-[rgba(196,181,253,0.30)] hover:bg-[rgba(196,181,253,0.04)] hover:text-[#f5f5f5]"
                     >
                       {tag}
                     </span>

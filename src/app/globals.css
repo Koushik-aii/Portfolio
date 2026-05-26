@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html {
@@ -14,13 +14,13 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: #f7f3ea;
+  background-color: #050507;
   background-image: 
-    linear-gradient(rgba(15, 118, 110, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 118, 110, 0.02) 1px, transparent 1px);
-  background-size: 50px 50px;
+    linear-gradient(rgba(179, 157, 219, 0.008) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(179, 157, 219, 0.008) 1px, transparent 1px);
+  background-size: 60px 60px;
   background-position: center top;
-  color: #1f2933;
+  color: #f8fafc;
   font-family: var(--font-manrope), sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -36,8 +36,8 @@ a {
 }
 
 *::selection {
-  background: rgba(15, 118, 110, 0.15);
-  color: #0f766e;
+  background: rgba(196, 181, 253, 0.15);
+  color: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {

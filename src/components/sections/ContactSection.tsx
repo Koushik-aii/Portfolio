@@ -26,7 +26,7 @@ export function ContactSection() {
                 href={`mailto:${profile.email}`}
                 variant="primary"
                 size="lg"
-                className="min-w-[220px]"
+                className="min-w-[220px] !border-[rgba(196,181,253,0.45)] !bg-[#0b0b10] !text-[#f5f5f5] hover:!bg-[#c4b5fd] hover:!text-[#050505] hover:!border-[#c4b5fd]"
               >
                 Say Hello
               </ButtonLink>

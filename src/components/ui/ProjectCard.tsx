@@ -35,7 +35,7 @@ function PreviewFrame({
 }) {
   return (
     <motion.div
-      className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-surface transition duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-[0_8px_30px_rgba(94,234,212,0.03)]"
+      className="group relative overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111018] transition duration-300 hover:-translate-y-1 hover:border-[rgba(196,181,253,0.30)] hover:shadow-card"
       initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
       transition={shouldReduceMotion ? undefined : { duration: 0.5, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.2 }}
@@ -62,11 +62,11 @@ function CodeLine({
 
 function StoriXPreview() {
   return (
-    <div className="p-5 md:p-6 bg-gradient-to-b from-surface to-background/50">
+    <div className="p-5 md:p-6 bg-gradient-to-b from-[#111018] to-[#050505]/50">
       <div className="space-y-4">
-        <div className="border-b border-border pb-3 flex items-center justify-between">
-          <p className="font-mono text-xs text-accent flex items-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent-warm inline-block mr-1.5" />
+        <div className="border-b border-[rgba(255,255,255,0.08)] pb-3 flex items-center justify-between">
+          <p className="font-mono text-xs text-[#b39ddb] flex items-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] inline-block mr-1.5" />
             storix.upload.ts
           </p>
           <div className="flex gap-1.5">
@@ -76,82 +76,82 @@ function StoriXPreview() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-border bg-[#0e1016] p-4 md:p-5">
+        <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#0b0b10] p-4 md:p-5">
           <CodeLine>
-            <span className="text-accent">const</span> <span className="text-zinc-200">filePipeline</span>{" "}
-            <span className="text-accent-warm">=</span> <span className="text-accent-warm">{"{"}</span>
+            <span className="text-[#c4b5fd]">const</span> <span className="text-zinc-200">filePipeline</span>{" "}
+            <span className="text-zinc-400">=</span> <span className="text-zinc-400">{"{"}</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-zinc-300">input</span>
+            <span className="text-[#b39ddb]">input</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-emerald-400">&quot;large file upload&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;large file upload&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-zinc-300">upload</span>
+            <span className="text-[#b39ddb]">upload</span>
             <span className="text-zinc-500">: [</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;chunk splitting&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;chunk splitting&quot;</span>
             <span className="text-zinc-500">, </span>
-            <span className="text-emerald-400">&quot;resumable transfer&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;resumable transfer&quot;</span>
             <span className="text-zinc-500">, </span>
-            <span className="text-emerald-400">&quot;progress tracking&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;progress tracking&quot;</span>
           </CodeLine>
           <CodeLine className="pl-4">
             <span className="text-zinc-500">]</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-zinc-300">process</span>
+            <span className="text-[#b39ddb]">process</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-accent-warm">{"{"}</span>
+            <span className="text-zinc-400">{"{"}</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-zinc-300">integrity</span>
+            <span className="text-[#b39ddb]">integrity</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-emerald-400">&quot;hash verification&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;hash verification&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-zinc-300">optimization</span>
+            <span className="text-[#b39ddb]">optimization</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-emerald-400">&quot;duplicate file detection&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;duplicate file detection&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-zinc-300">access</span>
+            <span className="text-[#b39ddb]">access</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-emerald-400">&quot;permission-controlled sharing&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;permission-controlled sharing&quot;</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-accent-warm">{"}"}</span>
+            <span className="text-zinc-400">{"}"}</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-zinc-300">storage</span>
+            <span className="text-[#b39ddb]">storage</span>
             <span className="text-zinc-500">: [</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;file service&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;file service&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;PostgreSQL metadata&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;PostgreSQL metadata&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;Redis cache&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;Redis cache&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;version history&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;version history&quot;</span>
           </CodeLine>
           <CodeLine className="pl-4">
             <span className="text-zinc-500">]</span>
           </CodeLine>
           <CodeLine>
-            <span className="text-accent-warm">{"};"}</span>
+            <span className="text-zinc-400">{"};"}</span>
           </CodeLine>
         </div>
 
@@ -159,7 +159,7 @@ function StoriXPreview() {
           {["Chunk Uploads", "Deduplication", "Metadata Search"].map((item) => (
             <span
               key={item}
-              className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs text-muted"
+              className="rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-2.5 py-1 text-xs text-[#a1a1aa]"
             >
               {item}
             </span>
@@ -172,11 +172,11 @@ function StoriXPreview() {
 
 function CodeLensPreview() {
   return (
-    <div className="p-5 md:p-6 bg-gradient-to-b from-surface to-background/50">
+    <div className="p-5 md:p-6 bg-gradient-to-b from-[#111018] to-[#050505]/50">
       <div className="space-y-4">
-        <div className="border-b border-border pb-3 flex items-center justify-between">
-          <p className="font-mono text-xs text-accent flex items-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent-warm inline-block mr-1.5" />
+        <div className="border-b border-[rgba(255,255,255,0.08)] pb-3 flex items-center justify-between">
+          <p className="font-mono text-xs text-[#b39ddb] flex items-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] inline-block mr-1.5" />
             codelens.analysis.ts
           </p>
           <div className="flex gap-1.5">
@@ -186,84 +186,84 @@ function CodeLensPreview() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-border bg-[#0e1016] p-4 md:p-5">
+        <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#0b0b10] p-4 md:p-5">
           <CodeLine>
-            <span className="text-accent">const</span> <span className="text-zinc-200">analysisPipeline</span>{" "}
-            <span className="text-accent-warm">=</span> <span className="text-accent-warm">{"{"}</span>
+            <span className="text-[#c4b5fd]">const</span> <span className="text-zinc-200">analysisPipeline</span>{" "}
+            <span className="text-zinc-400">=</span> <span className="text-zinc-400">{"{"}</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-zinc-300">input</span>
+            <span className="text-[#b39ddb]">input</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-emerald-400">&quot;GitHub repository URL&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;GitHub repository URL&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-zinc-300">fetch</span>
+            <span className="text-[#b39ddb]">fetch</span>
             <span className="text-zinc-500">: [</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;metadata&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;metadata&quot;</span>
             <span className="text-zinc-500">, </span>
-            <span className="text-emerald-400">&quot;file tree&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;file tree&quot;</span>
             <span className="text-zinc-500">, </span>
-            <span className="text-emerald-400">&quot;README&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;README&quot;</span>
             <span className="text-zinc-500">, </span>
-            <span className="text-emerald-400">&quot;language stats&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;language stats&quot;</span>
           </CodeLine>
           <CodeLine className="pl-4">
             <span className="text-zinc-500">]</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-zinc-300">process</span>
+            <span className="text-[#b39ddb]">process</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-accent-warm">{"{"}</span>
+            <span className="text-zinc-400">{"{"}</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-zinc-300">structure</span>
+            <span className="text-[#b39ddb]">structure</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-emerald-400">&quot;map folders and key files&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;map folders and key files&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-zinc-300">context</span>
+            <span className="text-[#b39ddb]">context</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-emerald-400">&quot;extract project purpose and stack&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;extract project purpose and stack&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-zinc-300">intelligence</span>
+            <span className="text-[#b39ddb]">intelligence</span>
             <span className="text-zinc-500">: </span>
-            <span className="text-emerald-400">&quot;generate AI-assisted explanation&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;generate AI-assisted explanation&quot;</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-accent-warm">{"}"}</span>
+            <span className="text-zinc-400">{"}"}</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-zinc-300">output</span>
+            <span className="text-[#b39ddb]">output</span>
             <span className="text-zinc-500">: [</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;architecture summary&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;architecture summary&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;codebase walkthrough&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;codebase walkthrough&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;tech stack breakdown&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;tech stack breakdown&quot;</span>
             <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-400">&quot;developer insights&quot;</span>
+            <span className="text-[#c4b5fd]">&quot;developer insights&quot;</span>
           </CodeLine>
           <CodeLine className="pl-4">
             <span className="text-zinc-500">]</span>
           </CodeLine>
           <CodeLine>
-            <span className="text-accent-warm">{"};"}</span>
+            <span className="text-zinc-400">{"};"}</span>
           </CodeLine>
         </div>
 
@@ -271,7 +271,7 @@ function CodeLensPreview() {
           {["GitHub API", "OpenAI API", "Repo Insights"].map((item) => (
             <span
               key={item}
-              className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs text-muted"
+              className="rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-2.5 py-1 text-xs text-[#a1a1aa]"
             >
               {item}
             </span>
@@ -363,7 +363,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 {project.stack.map((item) => (
                   <span
                     key={item}
-                    className="rounded-md border border-border bg-surface px-2.5 py-1.5 text-xs text-text/88"
+                    className="rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-2.5 py-1.5 text-xs text-[#a1a1aa]"
                   >
                     {item}
                   </span>
@@ -376,7 +376,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               <ul className="mt-3 grid gap-2.5 md:grid-cols-2">
                 {project.highlights.map((highlight) => (
                   <li key={highlight} className="flex gap-2.5 text-sm leading-7 text-muted">
-                    <span className="mt-2.5 h-1 w-1 rounded-full bg-accent/60 shrink-0" />
+                    <span className="mt-2.5 h-1.5 w-1.5 rounded-full bg-[#c4b5fd] shrink-0" />
                     <span>{highlight}</span>
                   </li>
                 ))}

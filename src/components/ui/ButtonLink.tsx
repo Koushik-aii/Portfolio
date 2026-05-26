@@ -14,10 +14,10 @@ type ButtonLinkProps = {
 
 const variantClasses: Record<NonNullable<ButtonLinkProps["variant"]>, string> = {
   primary:
-    "border border-accent bg-accent text-white hover:bg-accent/90 font-semibold shadow-sm",
+    "border border-[rgba(179,157,219,0.45)] bg-[rgba(179,157,219,0.12)] text-[#f5f5f5] hover:bg-[#b39ddb] hover:text-[#050505] hover:border-[#b39ddb] font-semibold transition-all duration-300",
   secondary:
-    "border border-border bg-surface text-muted hover:border-accent hover:text-accent hover:bg-accent/[0.04]",
-  ghost: "border border-transparent bg-transparent text-muted hover:text-text",
+    "border border-[rgba(255,255,255,0.08)] bg-[#111018] text-[#a1a1aa] hover:border-[rgba(179,157,219,0.25)] hover:text-[#f5f5f5] hover:bg-[rgba(255,255,255,0.02)] transition-all duration-300",
+  ghost: "border border-transparent bg-transparent text-[#a1a1aa] hover:text-[#f5f5f5] transition-all duration-300",
 };
 
 const sizeClasses: Record<NonNullable<ButtonLinkProps["size"]>, string> = {

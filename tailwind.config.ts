@@ -9,18 +9,23 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#f7f3ea",
-        surface: "#fffaf0",
-        panel: "#fffaf0",
-        border: "#e4dccf",
-        text: "#1f2933",
-        muted: "#5f6c72",
-        accent: "#0f766e",
+        background: "#050507",
+        secondary: "#101014",
+        surface: "#101014",
+        elevated: "#15121f",
+        panel: "#101014",
+        border: "rgba(255,255,255,0.10)",
+        text: "#f8fafc",
+        muted: "#c7c7d1",
+        "muted-dark": "#8b8b99",
+        accent: "#c4b5fd",
+        "accent-strong": "#7c3aed",
+        "accent-soft": "#a78bfa",
         "accent-warm": "#d97706",
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(15,118,110,0.08), 0 16px 48px rgba(31,41,51,0.06)",
-        card: "0 1px 3px rgba(31,41,51,0.06), 0 8px 24px rgba(31,41,51,0.04)",
+        glow: "0 0 0 1px rgba(179,157,219,0.05), 0 16px 48px rgba(0,0,0,0.8)",
+        card: "0 1px 2px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.4)",
       },
       fontFamily: {
         heading: ["var(--font-sora)", "sans-serif"],

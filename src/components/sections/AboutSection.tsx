@@ -31,7 +31,7 @@ function emphasizeText(text: string) {
 
 export function AboutSection() {
   return (
-    <section id="about" className="scroll-mt-24 py-8 md:py-14">
+    <section id="about" className="scroll-mt-32 pt-20 pb-12 md:pt-28 md:pb-16">
       <Container>
         <Reveal className="space-y-8">
           <SectionHeader eyebrow="> 01." title="About" />
