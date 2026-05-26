@@ -35,11 +35,11 @@ function PreviewFrame({
 }) {
   return (
     <motion.div
-      className="group relative overflow-hidden rounded-3xl border border-cyan-500/20 bg-slate-950 shadow-2xl transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:shadow-[0_24px_80px_rgba(110,231,249,0.12)]"
-      initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.98, y: 12 }}
+      className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-surface transition duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-[0_8px_30px_rgba(94,234,212,0.03)]"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
       transition={shouldReduceMotion ? undefined : { duration: 0.5, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.2 }}
-      whileInView={shouldReduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
     >
       {children}
     </motion.div>
@@ -54,7 +54,7 @@ function CodeLine({
   className?: string;
 }) {
   return (
-    <div className={`font-mono text-[13px] leading-7 text-slate-300 md:text-sm ${className}`}>
+    <div className={`font-mono text-[13px] leading-7 text-zinc-400 md:text-sm ${className}`}>
       {children}
     </div>
   );
@@ -62,55 +62,96 @@ function CodeLine({
 
 function StoriXPreview() {
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-[radial-gradient(circle_at_top_left,rgba(110,231,249,0.14),transparent_28%),linear-gradient(180deg,rgba(15,23,42,0.98),rgba(2,6,23,0.96))] p-5 md:p-7">
-      <div className="absolute inset-0 bg-hero-grid bg-[size:30px_30px] opacity-[0.05]" />
-      <div className="relative space-y-5">
-        <div className="border-b border-white/10 pb-4">
-          <p className="font-mono text-[12px] text-accent">storix.upload.ts</p>
+    <div className="p-5 md:p-6 bg-gradient-to-b from-surface to-background/50">
+      <div className="space-y-4">
+        <div className="border-b border-border pb-3 flex items-center justify-between">
+          <p className="font-mono text-xs text-accent flex items-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-warm inline-block mr-1.5" />
+            storix.upload.ts
+          </p>
+          <div className="flex gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
+            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
+            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
+          </div>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4 md:p-5">
+        <div className="rounded-xl border border-border bg-[#0e1016] p-4 md:p-5">
           <CodeLine>
-            <span className="text-cyan-300">const</span> <span className="text-white">fileFlow</span>{" "}
-            <span className="text-slate-400">=</span> <span className="text-slate-200">{"{"}</span>
+            <span className="text-accent">const</span> <span className="text-zinc-200">filePipeline</span>{" "}
+            <span className="text-accent-warm">=</span> <span className="text-accent-warm">{"{"}</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-cyan-200">upload</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"chunked"</span>
-            <span className="text-slate-400">,</span>
+            <span className="text-zinc-300">input</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-emerald-400">&quot;large file upload&quot;</span>
+            <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-cyan-200">transfer</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"resumable"</span>
-            <span className="text-slate-400">,</span>
+            <span className="text-zinc-300">upload</span>
+            <span className="text-zinc-500">: [</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-emerald-400">&quot;chunk splitting&quot;</span>
+            <span className="text-zinc-500">, </span>
+            <span className="text-emerald-400">&quot;resumable transfer&quot;</span>
+            <span className="text-zinc-500">, </span>
+            <span className="text-emerald-400">&quot;progress tracking&quot;</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-cyan-200">deduplication</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"hash-based"</span>
-            <span className="text-slate-400">,</span>
+            <span className="text-zinc-500">]</span>
+            <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-cyan-200">metadata</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"PostgreSQL"</span>
-            <span className="text-slate-400">,</span>
+            <span className="text-zinc-300">process</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-accent-warm">{"{"}</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-zinc-300">integrity</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-emerald-400">&quot;hash verification&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-zinc-300">optimization</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-emerald-400">&quot;duplicate file detection&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-zinc-300">access</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-emerald-400">&quot;permission-controlled sharing&quot;</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-cyan-200">cache</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"Redis"</span>
-            <span className="text-slate-400">,</span>
+            <span className="text-accent-warm">{"}"}</span>
+            <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-cyan-200">storage</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"file service"</span>
+            <span className="text-zinc-300">storage</span>
+            <span className="text-zinc-500">: [</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-emerald-400">&quot;file service&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-emerald-400">&quot;PostgreSQL metadata&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-emerald-400">&quot;Redis cache&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-emerald-400">&quot;version history&quot;</span>
+          </CodeLine>
+          <CodeLine className="pl-4">
+            <span className="text-zinc-500">]</span>
           </CodeLine>
           <CodeLine>
-            <span className="text-slate-200">{"};"}</span>
+            <span className="text-accent-warm">{"};"}</span>
           </CodeLine>
         </div>
 
@@ -118,7 +159,7 @@ function StoriXPreview() {
           {["Chunk Uploads", "Deduplication", "Metadata Search"].map((item) => (
             <span
               key={item}
-              className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-slate-300"
+              className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs text-muted"
             >
               {item}
             </span>
@@ -131,62 +172,98 @@ function StoriXPreview() {
 
 function CodeLensPreview() {
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-[radial-gradient(circle_at_top_left,rgba(110,231,249,0.12),transparent_26%),radial-gradient(circle_at_top_right,rgba(139,92,246,0.16),transparent_24%),linear-gradient(180deg,rgba(15,23,42,0.98),rgba(2,6,23,0.96))] p-5 md:p-7">
-      <div className="absolute inset-0 bg-hero-grid bg-[size:30px_30px] opacity-[0.05]" />
-      <div className="relative space-y-5">
-        <div className="border-b border-white/10 pb-4">
-          <p className="font-mono text-[12px] text-accent">codelens.analysis.ts</p>
+    <div className="p-5 md:p-6 bg-gradient-to-b from-surface to-background/50">
+      <div className="space-y-4">
+        <div className="border-b border-border pb-3 flex items-center justify-between">
+          <p className="font-mono text-xs text-accent flex items-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-warm inline-block mr-1.5" />
+            codelens.analysis.ts
+          </p>
+          <div className="flex gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
+            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
+            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
+          </div>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4 md:p-5">
+        <div className="rounded-xl border border-border bg-[#0e1016] p-4 md:p-5">
           <CodeLine>
-            <span className="text-cyan-300">const</span> <span className="text-white">analysisPipeline</span>{" "}
-            <span className="text-slate-400">=</span> <span className="text-slate-200">{"{"}</span>
+            <span className="text-accent">const</span> <span className="text-zinc-200">analysisPipeline</span>{" "}
+            <span className="text-accent-warm">=</span> <span className="text-accent-warm">{"{"}</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-cyan-200">input</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"GitHub repo URL"</span>
-            <span className="text-slate-400">,</span>
+            <span className="text-zinc-300">input</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-emerald-400">&quot;GitHub repository URL&quot;</span>
+            <span className="text-zinc-500">,</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-cyan-200">source</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"GitHub API"</span>
-            <span className="text-slate-400">,</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-cyan-200">context</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"repository metadata"</span>
-            <span className="text-slate-400">,</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-cyan-200">ai</span>
-            <span className="text-slate-400">: </span>
-            <span className="text-emerald-300">"OpenAI summary"</span>
-            <span className="text-slate-400">,</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-cyan-200">output</span>
-            <span className="text-slate-400">: [</span>
+            <span className="text-zinc-300">fetch</span>
+            <span className="text-zinc-500">: [</span>
           </CodeLine>
           <CodeLine className="pl-8">
-            <span className="text-emerald-300">"architecture insights"</span>
-            <span className="text-slate-400">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-emerald-300">"project structure"</span>
-            <span className="text-slate-400">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-emerald-300">"tech stack breakdown"</span>
+            <span className="text-emerald-400">&quot;metadata&quot;</span>
+            <span className="text-zinc-500">, </span>
+            <span className="text-emerald-400">&quot;file tree&quot;</span>
+            <span className="text-zinc-500">, </span>
+            <span className="text-emerald-400">&quot;README&quot;</span>
+            <span className="text-zinc-500">, </span>
+            <span className="text-emerald-400">&quot;language stats&quot;</span>
           </CodeLine>
           <CodeLine className="pl-4">
-            <span className="text-slate-400">]</span>
+            <span className="text-zinc-500">]</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-4">
+            <span className="text-zinc-300">process</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-accent-warm">{"{"}</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-zinc-300">structure</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-emerald-400">&quot;map folders and key files&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-zinc-300">context</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-emerald-400">&quot;extract project purpose and stack&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-zinc-300">intelligence</span>
+            <span className="text-zinc-500">: </span>
+            <span className="text-emerald-400">&quot;generate AI-assisted explanation&quot;</span>
+          </CodeLine>
+          <CodeLine className="pl-4">
+            <span className="text-accent-warm">{"}"}</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-4">
+            <span className="text-zinc-300">output</span>
+            <span className="text-zinc-500">: [</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-emerald-400">&quot;architecture summary&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-emerald-400">&quot;codebase walkthrough&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-emerald-400">&quot;tech stack breakdown&quot;</span>
+            <span className="text-zinc-500">,</span>
+          </CodeLine>
+          <CodeLine className="pl-8">
+            <span className="text-emerald-400">&quot;developer insights&quot;</span>
+          </CodeLine>
+          <CodeLine className="pl-4">
+            <span className="text-zinc-500">]</span>
           </CodeLine>
           <CodeLine>
-            <span className="text-slate-200">{"};"}</span>
+            <span className="text-accent-warm">{"};"}</span>
           </CodeLine>
         </div>
 
@@ -194,7 +271,7 @@ function CodeLensPreview() {
           {["GitHub API", "OpenAI API", "Repo Insights"].map((item) => (
             <span
               key={item}
-              className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-slate-300"
+              className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs text-muted"
             >
               {item}
             </span>
@@ -211,18 +288,33 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const reduceMotion = shouldReduceMotion ?? false;
 
   return (
-    <article className="grid gap-8 border-t border-white/10 pb-4 pt-8 md:grid-cols-2 md:items-start md:gap-10 md:pt-10">
+    <article className="grid gap-8 border-t border-border pb-4 pt-8 md:grid-cols-2 md:items-start md:gap-10 md:pt-10">
       <div className={isEven ? "order-1 md:pt-1" : "order-1 md:order-2 md:pt-1"}>
         {project.previewImage ? (
           <PreviewFrame shouldReduceMotion={reduceMotion}>
-            <div className="relative aspect-[16/9] overflow-hidden rounded-3xl bg-[#f5f0e6]">
-              <Image
-                alt={`${project.name} preview`}
-                className="object-contain object-left-top p-2 translate-y-1 scale-[1.01] transition duration-500 ease-out group-hover:translate-y-1 group-hover:scale-[1.03] group-hover:brightness-105 md:p-3 md:translate-y-2"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                src={project.previewImage}
-              />
+            <div className="p-5 md:p-6 bg-gradient-to-b from-surface to-background/50">
+              <div className="space-y-4">
+                <div className="border-b border-border pb-3 flex items-center justify-between">
+                  <p className="font-mono text-xs text-accent flex items-center">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-warm inline-block mr-1.5" />
+                    globesync.portal.app
+                  </p>
+                  <div className="flex gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
+                    <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
+                    <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
+                  </div>
+                </div>
+                <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-black border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+                  <Image
+                    alt={`${project.name} preview`}
+                    className="object-cover object-left-top transition duration-500 ease-out group-hover:scale-[1.02]"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    src={project.previewImage}
+                  />
+                </div>
+              </div>
             </div>
           </PreviewFrame>
         ) : (
@@ -235,29 +327,29 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       <div className={isEven ? "order-2" : "order-2 md:order-1"}>
         <div className="space-y-5">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
-              {String(index + 1).padStart(2, "0")}
+            <span className="text-xs font-medium text-muted">
+              Project {String(index + 1).padStart(2, "0")}
             </span>
             {project.status === "In Development" ? <StatusBadge status={project.status} /> : null}
           </div>
 
           <div className="space-y-3">
             <div className="space-y-2">
-              <h3 className="font-heading text-3xl font-semibold tracking-[-0.05em] text-white md:text-5xl">
+              <h3 className="font-heading text-2xl font-semibold tracking-[-0.03em] text-text md:text-4xl">
                 {project.name}
               </h3>
             </div>
-            <p className="max-w-2xl text-base leading-8 text-muted md:text-lg">{project.summary}</p>
+            <p className="max-w-2xl text-base leading-7 text-muted md:text-lg">{project.summary}</p>
           </div>
 
-          <div className="space-y-6 border-t border-white/10 pt-6">
+          <div className="space-y-5 border-t border-border pt-5">
             {project.githubUrl && (
               <div className="flex flex-wrap gap-3">
                 <ButtonLink
                   href={project.githubUrl}
                   variant="secondary"
                   size="sm"
-                  className="gap-2 border-accent/25 text-white/86 hover:border-accent/50 hover:bg-accent/10 hover:text-accent"
+                  className="gap-2"
                 >
                   <GitHubIcon />
                   GitHub
@@ -266,12 +358,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             )}
 
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.24em] text-accent">Stack</p>
-              <div className="mt-4 flex flex-wrap gap-2">
+              <p className="text-xs font-medium uppercase tracking-wider text-muted/70">Stack</p>
+              <div className="mt-3 flex flex-wrap gap-2">
                 {project.stack.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-medium text-white/85"
+                    className="rounded-md border border-border bg-surface px-2.5 py-1.5 text-xs text-text/88"
                   >
                     {item}
                   </span>
@@ -280,11 +372,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             </div>
 
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.24em] text-accent">Engineering Focus</p>
-              <ul className="mt-4 grid gap-3 md:grid-cols-2">
+              <p className="text-xs font-medium uppercase tracking-wider text-muted/70">Engineering Focus</p>
+              <ul className="mt-3 grid gap-2.5 md:grid-cols-2">
                 {project.highlights.map((highlight) => (
-                  <li key={highlight} className="flex gap-3 text-sm leading-7 text-white/82">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent" />
+                  <li key={highlight} className="flex gap-2.5 text-sm leading-7 text-muted">
+                    <span className="mt-2.5 h-1 w-1 rounded-full bg-accent/60 shrink-0" />
                     <span>{highlight}</span>
                   </li>
                 ))}

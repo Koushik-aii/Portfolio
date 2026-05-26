@@ -12,10 +12,10 @@ export function ContactSection() {
           <div className="space-y-8">
             <SectionHeader eyebrow="> 05." title="Contact" className="mx-auto max-w-4xl text-left" />
             <div className="space-y-5">
-              <h2 className="font-heading text-5xl font-semibold tracking-[-0.06em] text-white md:text-7xl">
+              <h2 className="font-heading text-5xl font-semibold tracking-[-0.06em] text-text md:text-7xl">
                 Get In Touch
               </h2>
-              <p className="mx-auto max-w-3xl text-lg leading-9 text-white/78 md:text-2xl">
+              <p className="mx-auto max-w-3xl text-lg leading-9 text-muted md:text-xl md:leading-9">
                 I&apos;m currently looking for new opportunities and open to collaborative work. If you have an idea,
                 project, or opportunity where I can contribute and grow, feel free to reach out.
               </p>
@@ -24,14 +24,15 @@ export function ContactSection() {
             <div className="pt-2">
               <ButtonLink
                 href={`mailto:${profile.email}`}
-                variant="secondary"
-                className="min-w-[220px] border-2 border-accent/70 bg-transparent px-8 py-4 text-lg font-semibold text-accent hover:border-accent hover:bg-accent/10"
+                variant="primary"
+                size="lg"
+                className="min-w-[220px]"
               >
                 Say Hello
               </ButtonLink>
             </div>
 
-            <div className="flex items-center justify-center gap-8 pt-8 text-sm font-medium text-white/78">
+            <div className="flex items-center justify-center gap-8 pt-8 text-sm font-medium text-text/75">
               <a
                 className="transition hover:text-accent"
                 href={profile.githubUrl}

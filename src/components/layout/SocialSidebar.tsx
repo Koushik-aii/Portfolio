@@ -101,7 +101,7 @@ export function SocialSidebar() {
         <a
           key={link.label}
           aria-label={link.label}
-          className="text-white/78 transition duration-200 hover:-translate-y-1 hover:text-accent hover:drop-shadow-[0_0_10px_rgba(110,231,249,0.2)]"
+          className="text-text/75 transition duration-200 hover:-translate-y-1 hover:text-accent"
           href={link.href}
           rel={link.isExternal ? "noreferrer" : undefined}
           target={link.isExternal ? "_blank" : undefined}
@@ -109,7 +109,7 @@ export function SocialSidebar() {
           {link.icon}
         </a>
       ))}
-      <span className="mt-2 h-28 w-px bg-gradient-to-b from-white/80 to-transparent lg:h-36" />
+      <span className="mt-2 h-28 w-px bg-gradient-to-b from-border to-transparent lg:h-36" />
     </aside>
   );
 }

@@ -19,7 +19,7 @@ function emphasizeText(text: string) {
   return text.split(pattern).map((part, index) => {
     if (emphasizedTerms.includes(part)) {
       return (
-        <span key={`${part}-${index}`} className="font-medium text-white">
+        <span key={`${part}-${index}`} className="font-semibold text-text">
           {part}
         </span>
       );
@@ -31,14 +31,14 @@ function emphasizeText(text: string) {
 
 export function AboutSection() {
   return (
-    <section id="about" className="scroll-mt-32 py-16 md:py-24">
+    <section id="about" className="scroll-mt-24 py-8 md:py-14">
       <Container>
         <Reveal className="space-y-8">
           <SectionHeader eyebrow="> 01." title="About" />
 
           <div className="mt-10 max-w-5xl space-y-7">
             {profile.about.map((paragraph) => (
-              <p key={paragraph} className="text-lg leading-8 text-slate-300 md:text-xl md:leading-9">
+              <p key={paragraph} className="text-lg leading-8 text-muted/95 md:text-xl md:leading-9">
                 {emphasizeText(paragraph)}
               </p>
             ))}

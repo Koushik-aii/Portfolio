@@ -9,21 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#060816",
-        surface: "#0f172a",
-        panel: "#111b33",
-        border: "#24324f",
-        text: "#edf2ff",
-        muted: "#9daccc",
-        accent: "#6ee7f9",
-        accentStrong: "#8b5cf6",
+        background: "#f7f3ea",
+        surface: "#fffaf0",
+        panel: "#fffaf0",
+        border: "#e4dccf",
+        text: "#1f2933",
+        muted: "#5f6c72",
+        accent: "#0f766e",
+        "accent-warm": "#d97706",
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(110, 231, 249, 0.2), 0 24px 80px rgba(8, 15, 35, 0.65)",
-      },
-      backgroundImage: {
-        "hero-grid":
-          "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+        glow: "0 0 0 1px rgba(15,118,110,0.08), 0 16px 48px rgba(31,41,51,0.06)",
+        card: "0 1px 3px rgba(31,41,51,0.06), 0 8px 24px rgba(31,41,51,0.04)",
       },
       fontFamily: {
         heading: ["var(--font-sora)", "sans-serif"],
@@ -39,4 +36,3 @@ const config: Config = {
 };
 
 export default config;
-
