@@ -23,8 +23,7 @@ export const metadata: Metadata = {
   description:
     "Portfolio of Sai Koushik Chowdary Thati, Full-Stack Software Engineer and B.Tech CSE student at IIIT Sri City.",
   icons: {
-    icon: "/icon.png",
-    apple: "/apple-icon.png",
+    icon: "/icon.svg",
   },
 };
 
