@@ -60,7 +60,7 @@ export function HeroSection() {
                   <div className="grid gap-3 border-b border-border pb-4 sm:grid-cols-2">
                     <div>
                       <p className="font-mono text-[11px] font-semibold uppercase tracking-wider text-accent/70">Location</p>
-                      <p className="mt-1.5 text-text">India</p>
+                      <p className="mt-1.5 text-text">Vijayawada, Andhra Pradesh</p>
                     </div>
                     <div>
                       <p className="font-mono text-[11px] font-semibold uppercase tracking-wider text-accent/70">Education</p>
