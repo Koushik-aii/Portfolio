@@ -1,44 +1,106 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
-import { Reveal } from "@/components/ui/Reveal";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { leadershipTimeline } from "@/data/profile";
 
 export function LeadershipSection() {
   return (
-    <section id="leadership" className="scroll-mt-32 py-16 md:py-24">
+    <section id="leadership" className="scroll-mt-28 py-24 md:py-32">
       <Container>
-        <Reveal className="space-y-10">
-          <SectionHeader eyebrow="> 04." title="Leadership" />
+        {/* Header */}
+        <motion.p
+          initial={{ opacity: 0, x: -12 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C6FF00] mb-4"
+        >
+          &gt; 04. Leadership
+        </motion.p>
 
-          <div className="relative border-l border-border pl-6 md:pl-10">
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="font-heading text-4xl font-bold tracking-[-0.03em] text-white md:text-5xl mb-16"
+        >
+          Leadership
+        </motion.h2>
+
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical timeline line */}
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute left-6 top-0 bottom-0 w-px origin-top md:left-8"
+            style={{
+              background: "linear-gradient(to bottom, #C6FF00, rgba(139,92,246,0.4), transparent)",
+            }}
+          />
+
+          <div className="space-y-8 pl-16 md:pl-24">
             {leadershipTimeline.map((item, index) => (
-              <Reveal
+              <motion.div
                 key={item.title}
-                delay={0.06 * index}
-                className="relative grid gap-4 border-b border-border py-7 last:border-b-0 md:grid-cols-[220px_1fr]"
+                initial={{ opacity: 0, x: -24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  delay: index * 0.1,
+                  duration: 0.6,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="relative"
               >
-                <span className="absolute -left-[31px] top-9 h-3 w-3 rounded-full border border-[#b39ddb]/40 bg-background md:-left-[46px]" />
-                <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent">{item.subtitle}</p>
-                  <p className="mt-3 font-heading text-2xl font-semibold tracking-[-0.03em] text-text">
+                {/* Timeline dot */}
+                <div className="absolute -left-[42px] top-6 md:-left-[58px]">
+                  <div className="relative flex h-4 w-4 items-center justify-center">
+                    <span className="absolute h-4 w-4 rounded-full bg-[#C6FF00]/20 animate-pulse" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#C6FF00]" />
+                  </div>
+                </div>
+
+                {/* Glass Card */}
+                <div className="group rounded-2xl border border-white/[0.08] bg-[rgba(13,13,13,0.8)] p-6 backdrop-blur-sm transition-all duration-300 hover:border-[rgba(198,255,0,0.18)] hover:shadow-[0_0_30px_rgba(198,255,0,0.05)] md:p-8">
+                  {/* Top meta */}
+                  <div className="mb-4 flex flex-wrap items-center gap-3">
+                    <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[#C6FF00]">
+                      {item.subtitle}
+                    </span>
+                    <span className="h-px w-6 bg-white/10" />
+                    <span className="text-xs text-[#A1A1AA]">2024–2025</span>
+                  </div>
+
+                  <h3 className="font-heading text-2xl font-bold tracking-[-0.02em] text-white mb-3 md:text-3xl">
                     {item.title}
-                  </p>
+                  </h3>
+
+                  <p className="text-sm leading-7 text-[#A1A1AA] mb-5 max-w-2xl">{item.description}</p>
+
+                  {/* Responsibilities */}
+                  <div>
+                    <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A1A1AA] mb-3">
+                      Responsibilities
+                    </p>
+                    <ul className="grid gap-2 sm:grid-cols-2">
+                      {item.responsibilities.map((r) => (
+                        <li key={r} className="flex items-start gap-2.5 text-sm text-[#A1A1AA]">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#8B5CF6]" />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <div className="max-w-2xl space-y-4">
-                  <p className="text-sm leading-7 text-muted">{item.description}</p>
-                  <ul className="space-y-2 text-sm leading-7 text-text/88">
-                    {item.responsibilities.map((responsibility) => (
-                      <li key={responsibility} className="flex gap-3">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#c4b5fd]" />
-                        <span>{responsibility}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
+              </motion.div>
             ))}
           </div>
-        </Reveal>
+        </div>
       </Container>
     </section>
   );

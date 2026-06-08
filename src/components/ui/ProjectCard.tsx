@@ -1,10 +1,10 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Image from "next/image";
-import type { ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { ButtonLink } from "@/components/ui/ButtonLink";
-import { StatusBadge } from "@/components/ui/StatusBadge";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
+import { ArchitectureFlow } from "@/components/ui/ArchitectureFlow";
+import { ProjectModal } from "@/components/ui/ProjectModal";
 import type { Project } from "@/types/project";
 
 type ProjectCardProps = {
@@ -26,373 +26,263 @@ function GitHubIcon() {
   );
 }
 
-function PreviewFrame({
+const slugToFlowSteps: Record<string, string[]> = {
+  codelens: [
+    "GitHub Repository",
+    "Analysis Engine",
+    "AI Processing",
+    "Insights Dashboard",
+  ],
+  storix: [
+    "Chunk Upload",
+    "Deduplication",
+    "Metadata Index",
+    "Storage Layer",
+  ],
+  globesync: [
+    "User Authentication",
+    "Trip Booking Engine",
+    "Payment Workflow",
+    "Role-Based Access",
+  ],
+};
+
+function TiltCard({
   children,
-  shouldReduceMotion,
+  disabled,
+  onClick,
 }: {
-  children: ReactNode;
-  shouldReduceMotion: boolean;
+  children: React.ReactNode;
+  disabled: boolean;
+  onClick: () => void;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const [hovered, setHovered] = useState(false);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), {
+    stiffness: 200, damping: 24,
+  });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), {
+    stiffness: 200, damping: 24,
+  });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+    setHovered(false);
+  };
+
+  const tiltStyle = disabled
+    ? {}
+    : { rotateX, rotateY, transformStyle: "preserve-3d" as const };
+
   return (
     <motion.div
-      className="group relative overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111018] transition duration-300 hover:-translate-y-1 hover:border-[rgba(196,181,253,0.30)] hover:shadow-card"
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-      transition={shouldReduceMotion ? undefined : { duration: 0.5, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.2 }}
-      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+      ref={ref}
+      style={{
+        ...tiltStyle,
+        boxShadow: hovered
+          ? "0 0 0 1px rgba(198,255,0,0.18), 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(198,255,0,0.06)"
+          : "0 4px 20px rgba(0,0,0,0.4)",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      whileHover={disabled ? undefined : { scale: 1.015 }}
+      transition={{ duration: 0.2 }}
+      className="relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0A0A] transition-all duration-300"
     >
+      {/* Animated border sweep on hover */}
+      {hovered && (
+        <div
+          className="pointer-events-none absolute inset-0 rounded-2xl"
+          style={{
+            background:
+              "conic-gradient(from var(--angle, 0deg), transparent 20%, rgba(198,255,0,0.25) 40%, transparent 60%)",
+            padding: "1px",
+            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+            WebkitMaskComposite: "xor",
+            animation: "borderSpin 2.5s linear infinite",
+          }}
+        />
+      )}
       {children}
     </motion.div>
   );
 }
 
-function CodeLine({
-  children,
-  className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={`font-mono text-[13px] leading-7 text-zinc-400 md:text-sm ${className}`}>
-      {children}
-    </div>
-  );
-}
-
-function StoriXPreview() {
-  return (
-    <div className="p-5 md:p-6 bg-gradient-to-b from-[#111018] to-[#050505]/50">
-      <div className="space-y-4">
-        <div className="border-b border-[rgba(255,255,255,0.08)] pb-3 flex items-center justify-between">
-          <p className="font-mono text-xs text-[#b39ddb] flex items-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] inline-block mr-1.5" />
-            storix.upload.ts
-          </p>
-          <div className="flex gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
-            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
-            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#0b0b10] p-4 md:p-5">
-          <CodeLine>
-            <span className="text-[#c4b5fd]">const</span> <span className="text-zinc-200">filePipeline</span>{" "}
-            <span className="text-zinc-400">=</span> <span className="text-zinc-400">{"{"}</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-[#b39ddb]">input</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-[#c4b5fd]">&quot;large file upload&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-[#b39ddb]">upload</span>
-            <span className="text-zinc-500">: [</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;chunk splitting&quot;</span>
-            <span className="text-zinc-500">, </span>
-            <span className="text-[#c4b5fd]">&quot;resumable transfer&quot;</span>
-            <span className="text-zinc-500">, </span>
-            <span className="text-[#c4b5fd]">&quot;progress tracking&quot;</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-zinc-500">]</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-[#b39ddb]">process</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-zinc-400">{"{"}</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#b39ddb]">integrity</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-[#c4b5fd]">&quot;hash verification&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#b39ddb]">optimization</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-[#c4b5fd]">&quot;duplicate file detection&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#b39ddb]">access</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-[#c4b5fd]">&quot;permission-controlled sharing&quot;</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-zinc-400">{"}"}</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-[#b39ddb]">storage</span>
-            <span className="text-zinc-500">: [</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;file service&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;PostgreSQL metadata&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;Redis cache&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;version history&quot;</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-zinc-500">]</span>
-          </CodeLine>
-          <CodeLine>
-            <span className="text-zinc-400">{"};"}</span>
-          </CodeLine>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {["Chunk Uploads", "Deduplication", "Metadata Search"].map((item) => (
-            <span
-              key={item}
-              className="rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-2.5 py-1 text-xs text-[#a1a1aa]"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CodeLensPreview() {
-  return (
-    <div className="p-5 md:p-6 bg-gradient-to-b from-[#111018] to-[#050505]/50">
-      <div className="space-y-4">
-        <div className="border-b border-[rgba(255,255,255,0.08)] pb-3 flex items-center justify-between">
-          <p className="font-mono text-xs text-[#b39ddb] flex items-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] inline-block mr-1.5" />
-            codelens.analysis.ts
-          </p>
-          <div className="flex gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
-            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
-            <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#0b0b10] p-4 md:p-5">
-          <CodeLine>
-            <span className="text-[#c4b5fd]">const</span> <span className="text-zinc-200">analysisPipeline</span>{" "}
-            <span className="text-zinc-400">=</span> <span className="text-zinc-400">{"{"}</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-[#b39ddb]">input</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-[#c4b5fd]">&quot;GitHub repository URL&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-[#b39ddb]">fetch</span>
-            <span className="text-zinc-500">: [</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;metadata&quot;</span>
-            <span className="text-zinc-500">, </span>
-            <span className="text-[#c4b5fd]">&quot;file tree&quot;</span>
-            <span className="text-zinc-500">, </span>
-            <span className="text-[#c4b5fd]">&quot;README&quot;</span>
-            <span className="text-zinc-500">, </span>
-            <span className="text-[#c4b5fd]">&quot;language stats&quot;</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-zinc-500">]</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-[#b39ddb]">process</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-zinc-400">{"{"}</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#b39ddb]">structure</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-[#c4b5fd]">&quot;map folders and key files&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#b39ddb]">context</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-[#c4b5fd]">&quot;extract project purpose and stack&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#b39ddb]">intelligence</span>
-            <span className="text-zinc-500">: </span>
-            <span className="text-[#c4b5fd]">&quot;generate AI-assisted explanation&quot;</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-zinc-400">{"}"}</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-[#b39ddb]">output</span>
-            <span className="text-zinc-500">: [</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;architecture summary&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;codebase walkthrough&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;tech stack breakdown&quot;</span>
-            <span className="text-zinc-500">,</span>
-          </CodeLine>
-          <CodeLine className="pl-8">
-            <span className="text-[#c4b5fd]">&quot;developer insights&quot;</span>
-          </CodeLine>
-          <CodeLine className="pl-4">
-            <span className="text-zinc-500">]</span>
-          </CodeLine>
-          <CodeLine>
-            <span className="text-zinc-400">{"};"}</span>
-          </CodeLine>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {["GitHub API", "OpenAI API", "Repo Insights"].map((item) => (
-            <span
-              key={item}
-              className="rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-2.5 py-1 text-xs text-[#a1a1aa]"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  const isEven = index % 2 === 0;
-  const shouldReduceMotion = useReducedMotion();
-  const reduceMotion = shouldReduceMotion ?? false;
+  const [modalOpen, setModalOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion() ?? false;
+  const flowSteps = slugToFlowSteps[project.slug] ?? [];
+
+  const accentColor = index === 0 ? "#8B5CF6" : "#C6FF00";
 
   return (
-    <article className="grid gap-8 border-t border-border pb-4 pt-8 md:grid-cols-2 md:items-start md:gap-10 md:pt-10">
-      <div className={isEven ? "order-1 md:pt-1" : "order-1 md:order-2 md:pt-1"}>
-        {project.previewImage ? (
-          <PreviewFrame shouldReduceMotion={reduceMotion}>
-            <div className="p-5 md:p-6 bg-gradient-to-b from-surface to-background/50">
-              <div className="space-y-4">
-                <div className="border-b border-border pb-3 flex items-center justify-between">
-                  <p className="font-mono text-xs text-accent flex items-center">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-warm inline-block mr-1.5" />
-                    globesync.portal.app
-                  </p>
-                  <div className="flex gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
-                    <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
-                    <span className="w-2 h-2 rounded-full bg-text/[0.08]" />
-                  </div>
-                </div>
-                <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-black border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+    <>
+      <motion.article
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
+        whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="grid gap-8 md:grid-cols-2 md:items-start md:gap-12"
+      >
+        {/* ─── Preview side ─────────────────────────────── */}
+        <div className={index % 2 !== 0 ? "md:order-2" : ""}>
+          <TiltCard
+            disabled={shouldReduceMotion}
+            onClick={() => setModalOpen(true)}
+          >
+            {/* Top bar */}
+            <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-3">
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: accentColor }} />
+                <span className="font-mono text-[11px] text-[#A1A1AA]">
+                  {project.slug}.architecture
+                </span>
+              </div>
+              <div className="flex gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-white/[0.06]" />
+                <span className="h-2 w-2 rounded-full bg-white/[0.06]" />
+                <span className="h-2 w-2 rounded-full bg-white/[0.06]" />
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-5 md:p-6">
+              {project.previewImage ? (
+                <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-black">
                   <Image
                     alt={`${project.name} preview`}
-                    className="object-cover object-left-top transition duration-500 ease-out group-hover:scale-[1.02]"
+                    className="object-cover object-left-top"
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     src={project.previewImage}
                   />
                 </div>
-              </div>
+              ) : (
+                <ArchitectureFlow
+                  steps={flowSteps.map((label) => ({ label }))}
+                  accentColor={accentColor}
+                />
+              )}
             </div>
-          </PreviewFrame>
-        ) : (
-          <PreviewFrame shouldReduceMotion={reduceMotion}>
-            {project.slug === "storix" ? <StoriXPreview /> : <CodeLensPreview />}
-          </PreviewFrame>
-        )}
-      </div>
 
-      <div className={isEven ? "order-2" : "order-2 md:order-1"}>
-        <div className="space-y-5">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-xs font-medium text-muted">
-              Project {String(index + 1).padStart(2, "0")}
-            </span>
-            {project.status === "In Development" ? <StatusBadge status={project.status} /> : null}
-          </div>
-
-          <div className="space-y-3">
-            <div className="space-y-2">
-              <h3 className="font-heading text-2xl font-semibold tracking-[-0.03em] text-text md:text-4xl">
-                {project.name}
-              </h3>
+            {/* Click hint */}
+            <div className="border-t border-white/[0.04] px-5 py-2.5 text-right">
+              <span className="font-mono text-[10px] text-[#3F3F46]">
+                Click to expand →
+              </span>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-muted md:text-lg">{project.summary}</p>
-          </div>
+          </TiltCard>
+        </div>
 
-          <div className="space-y-5 border-t border-border pt-5">
-            {project.githubUrl && (
-              <div className="flex flex-wrap gap-3">
-                <ButtonLink
-                  href={project.githubUrl}
-                  variant="secondary"
-                  size="sm"
-                  className="gap-2"
-                >
-                  <GitHubIcon />
-                  GitHub
-                </ButtonLink>
-              </div>
-            )}
+        {/* ─── Info side ────────────────────────────────── */}
+        <div className={index % 2 !== 0 ? "md:order-1" : ""}>
+          <div className="space-y-5">
+            {/* Meta row */}
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-mono text-xs text-[#3F3F46]">
+                Project {String(index + 1).padStart(2, "0")}
+              </span>
+              {project.status && (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C6FF00]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-[#C6FF00]">
+                  <span className="h-1 w-1 rounded-full bg-[#C6FF00] animate-pulse" />
+                  {project.status}
+                </span>
+              )}
+            </div>
 
+            {/* Name */}
+            <h3
+              className="font-heading font-bold tracking-[-0.03em] text-white"
+              style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
+            >
+              {project.name}
+            </h3>
+
+            <p className="text-base leading-7 text-[#A1A1AA] md:text-lg">{project.summary}</p>
+
+            {/* Divider */}
+            <div className="h-px bg-white/[0.06]" />
+
+            {/* Stack */}
             <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-muted/70">Stack</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {project.stack.map((item) => (
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#A1A1AA] mb-3">
+                Stack
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {project.stack.map((tech) => (
                   <span
-                    key={item}
-                    className="rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-2.5 py-1.5 text-xs text-[#a1a1aa]"
+                    key={tech}
+                    className="rounded-md border border-white/[0.07] bg-white/[0.02] px-3 py-1.5 font-mono text-xs text-[#A1A1AA] transition-all duration-200 hover:border-[rgba(198,255,0,0.25)] hover:text-white"
                   >
-                    {item}
+                    {tech}
                   </span>
                 ))}
               </div>
             </div>
 
+            {/* Highlights */}
             <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-muted/70">Engineering Focus</p>
-              <ul className="mt-3 grid gap-2.5 md:grid-cols-2">
-                {project.highlights.map((highlight) => (
-                  <li key={highlight} className="flex gap-2.5 text-sm leading-7 text-muted">
-                    <span className="mt-2.5 h-1.5 w-1.5 rounded-full bg-[#c4b5fd] shrink-0" />
-                    <span>{highlight}</span>
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#A1A1AA] mb-3">
+                Engineering Focus
+              </p>
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {project.highlights.slice(0, 4).map((h) => (
+                  <li key={h} className="flex items-start gap-2.5 text-sm text-[#A1A1AA]">
+                    <span
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: accentColor }}
+                    />
+                    {h}
                   </li>
                 ))}
               </ul>
             </div>
 
-            {project.liveUrl && (
-              <div className="flex flex-wrap gap-3">
-                <ButtonLink href={project.liveUrl} variant="secondary" size="sm">
-                  Demo
-                </ButtonLink>
-              </div>
-            )}
+            {/* Links */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-2 font-mono text-xs font-medium text-[#A1A1AA] transition-all duration-200 hover:border-white/20 hover:text-white"
+                >
+                  <GitHubIcon />
+                  GitHub
+                </a>
+              )}
+              <button
+                type="button"
+                onClick={() => setModalOpen(true)}
+                className="inline-flex items-center gap-2 rounded-lg px-4 py-2 font-mono text-xs font-semibold transition-all duration-200"
+                style={{
+                  color: accentColor,
+                  border: `1px solid ${accentColor}30`,
+                  background: `${accentColor}08`,
+                }}
+              >
+                View Details →
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </motion.article>
+
+      <ProjectModal project={modalOpen ? project : null} onClose={() => setModalOpen(false)} />
+    </>
   );
 }

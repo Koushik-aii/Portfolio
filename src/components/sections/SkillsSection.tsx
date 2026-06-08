@@ -1,37 +1,52 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
-import { Reveal } from "@/components/ui/Reveal";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { skillCategories } from "@/data/profile";
+import { SkillsConstellation } from "@/components/ui/SkillsConstellation";
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="scroll-mt-32 py-16 md:py-24">
+    <section id="skills" className="scroll-mt-28 py-24 md:py-32">
       <Container>
-        <Reveal className="space-y-10">
-          <SectionHeader eyebrow="> 02." title="Skills" />
+        {/* Header */}
+        <motion.p
+          initial={{ opacity: 0, x: -12 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C6FF00] mb-4"
+        >
+          &gt; 02. Skills
+        </motion.p>
 
-          <div className="border-y border-border">
-            {skillCategories.map((group, index) => (
-              <Reveal
-                key={group.title}
-                delay={0.06 * index}
-                className="grid gap-6 border-b border-border py-7 last:border-b-0 md:grid-cols-[180px_1fr]"
-              >
-                <p className="font-heading text-2xl font-semibold tracking-[-0.03em] text-text">{group.title}</p>
-                <div className="flex flex-wrap gap-3">
-                  {group.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-2.5 text-sm font-medium text-[#a1a1aa] transition duration-300 hover:-translate-y-0.5 hover:border-[rgba(196,181,253,0.30)] hover:bg-[rgba(196,181,253,0.04)] hover:text-[#f5f5f5]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </Reveal>
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="font-heading text-4xl font-bold tracking-[-0.03em] text-white md:text-5xl mb-4"
+        >
+          Tech Stack
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="text-[#A1A1AA] mb-12 max-w-xl"
+        >
+          Select a category to explore the constellation.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
+        >
+          <SkillsConstellation />
+        </motion.div>
       </Container>
     </section>
   );
