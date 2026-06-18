@@ -148,7 +148,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: accentColor }} />
                 <span className="font-mono text-[11px] text-[#A1A1AA]">
-                  {project.slug}.architecture
+                  {project.slug}.{project.previewImage ? "preview" : "architecture"}
                 </span>
               </div>
               <div className="flex gap-1.5">

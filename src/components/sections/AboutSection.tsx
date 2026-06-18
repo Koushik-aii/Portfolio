@@ -85,7 +85,7 @@ export function AboutSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ delay: 0.15 + i * 0.1, duration: 0.6, ease: "easeOut" }}
-                  className="text-base leading-8 text-[#A1A1AA] md:text-lg md:leading-9"
+                  className="text-base leading-8 text-[#D4D4D8] md:text-lg md:leading-9"
                 >
                   {emphasizeText(paragraph)}
                 </motion.p>
@@ -103,7 +103,7 @@ export function AboutSection() {
               {["Backend Engineering", "System Design", "Data Structures", "AI Applications"].map((kw) => (
                 <span
                   key={kw}
-                  className="rounded-full border border-[#C6FF00]/20 bg-[#C6FF00]/05 px-4 py-1.5 font-mono text-xs font-semibold text-[#C6FF00]/80"
+                  className="rounded-full border border-[#C6FF00]/35 bg-[#C6FF00]/[0.07] px-4 py-1.5 font-mono text-xs font-semibold text-[#C6FF00]"
                 >
                   {kw}
                 </span>

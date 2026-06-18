@@ -20,7 +20,7 @@ export const profile = {
 export const skillCategories = [
   {
     title: "Languages",
-    tags: ["Java", "Python", "C", "JavaScript", "TypeScript", "SQL"],
+    tags: ["Java", "Python", "C", "C++", "JavaScript", "TypeScript", "SQL"],
   },
   {
     title: "Backend",
