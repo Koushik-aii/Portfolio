@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
-import { SkillsConstellation } from "@/components/ui/SkillsConstellation";
+import { SkillsOrbit } from "@/components/ui/SkillsOrbit";
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="scroll-mt-28 py-24 md:py-32">
+    <section id="skills" className="scroll-mt-28 py-24 md:py-32 overflow-hidden">
       <Container>
         {/* Header */}
         <motion.p
@@ -36,7 +36,7 @@ export function SkillsSection() {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="text-[#A1A1AA] mb-12 max-w-xl"
         >
-          Select a category to explore the constellation.
+          A focused stack across backend systems, frontend interfaces, databases, and delivery tools.
         </motion.p>
 
         <motion.div
@@ -45,7 +45,7 @@ export function SkillsSection() {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
         >
-          <SkillsConstellation />
+          <SkillsOrbit />
         </motion.div>
       </Container>
     </section>

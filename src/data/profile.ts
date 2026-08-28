@@ -3,7 +3,7 @@ export const profile = {
   role: "Full-Stack Software Engineer",
   education: "B.Tech CSE, IIIT Sri City",
   email: "koushikthati@gmail.com",
-  resumeUrl: "https://drive.google.com/file/d/1xNMG-iKrDiRWwRmW7LopDmQweIEfXolo/view?usp=sharing",
+  resumeUrl: "https://drive.google.com/file/d/1mvr_6Whos6KIyZszQM6Hsr4uC2DGA3q_/view?usp=sharing",
   githubUrl: "https://github.com/Koushik-aii",
   linkedinUrl: "https://www.linkedin.com/in/saikoushikchowdarythati",
   youtubeUrl: "",

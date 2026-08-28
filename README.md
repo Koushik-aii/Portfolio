@@ -49,7 +49,6 @@ Recommended deployment: Vercel.
 
 - `src/data/profile.ts` — personal profile, links, skills, leadership content
 - `src/data/projects.ts` — project details and GitHub links
-- `public/resume.pdf` — resume file served at `/resume.pdf`
 - `public/projects/globesync-preview.png` — GlobeSync project preview
 
 ## Notes

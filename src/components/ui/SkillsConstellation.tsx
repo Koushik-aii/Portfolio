@@ -14,25 +14,9 @@ const CATEGORY_COLORS: Record<string, string> = {
   Tools: "#EC4899",
 };
 
-// Hex grid offset layout: alternating rows are shifted right
-function getHexPositions(count: number) {
-  const positions: { col: number; row: number }[] = [];
-  const perRow = [4, 4, 4, 4]; // pattern of columns per row
-  let idx = 0;
-  for (let row = 0; row < perRow.length && idx < count; row++) {
-    const cols = perRow[row];
-    for (let col = 0; col < cols && idx < count; col++) {
-      positions.push({ col, row });
-      idx++;
-    }
-  }
-  return positions;
-}
-
 const HEX_W = 88;
 const HEX_H = 76;
 const HEX_GAP_X = 6;
-const HEX_GAP_Y = 6;
 
 function hexPoints(w: number, h: number) {
   const hw = w / 2;
@@ -55,18 +39,9 @@ export function SkillsConstellation() {
   const activeGroup = skillCategories.find((g) => g.title === activeCategory);
   const tags = activeGroup?.tags ?? [];
   const accentColor = CATEGORY_COLORS[activeCategory] ?? "#C6FF00";
-  const positions = getHexPositions(tags.length);
-
-  // Compute SVG canvas size
-  const perRow = [4, 3, 4, 3];
-  const maxCols = Math.max(...perRow);
-  const numRows = Math.ceil(tags.length / 3.5); // rough
-  const canvasW = maxCols * (HEX_W + HEX_GAP_X) + HEX_W / 2 + 12;
-  const canvasH = perRow.length * (HEX_H * 0.77 + HEX_GAP_Y) + HEX_H * 0.23 + 12;
 
   return (
     <div className="space-y-8">
-      {/* Category Tabs */}
       <div className="flex flex-wrap gap-2">
         {CATEGORY_ORDER.map((cat) => {
           const color = CATEGORY_COLORS[cat] ?? "#C6FF00";
@@ -89,7 +64,6 @@ export function SkillsConstellation() {
         })}
       </div>
 
-      {/* Hex Grid */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeCategory}
@@ -99,17 +73,12 @@ export function SkillsConstellation() {
           transition={{ duration: 0.35, ease: "easeOut" }}
           className="relative"
         >
-          {/* Subtle ambient glow */}
           <div
-            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-40 rounded-full blur-[90px] opacity-15"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-40 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-15 blur-[90px]"
             style={{ background: accentColor }}
           />
 
-          {/* Hex tile grid */}
-          <div
-            className="relative flex flex-col gap-[6px]"
-            style={{ paddingBottom: 8 }}
-          >
+          <div className="relative flex flex-col gap-[6px]" style={{ paddingBottom: 8 }}>
             {(() => {
               const rows: string[][] = [];
               const perRow = [4, 4, 4, 4];
@@ -183,7 +152,6 @@ function HexTile({
         className="absolute inset-0"
         style={{ overflow: "visible" }}
       >
-        {/* Glow on hover */}
         {hovered && (
           <polygon
             points={pts}
@@ -192,7 +160,6 @@ function HexTile({
             filter="url(#hexGlow)"
           />
         )}
-        {/* Hex body */}
         <polygon
           points={pts}
           fill={hovered ? `${accentColor}14` : "rgba(255,255,255,0.025)"}
@@ -200,7 +167,6 @@ function HexTile({
           strokeWidth={hovered ? 1.5 : 1}
           style={{ transition: "all 0.25s ease" }}
         />
-        {/* Inner accent line (top edge highlight) */}
         <polygon
           points={pts}
           fill="none"
@@ -218,7 +184,6 @@ function HexTile({
         </defs>
       </svg>
 
-      {/* Label */}
       <div
         className="absolute inset-0 flex flex-col items-center justify-center px-1 text-center"
         style={{
@@ -226,7 +191,6 @@ function HexTile({
           transition: "color 0.25s ease",
         }}
       >
-        {/* Slim accent bar — replaces the dot */}
         <div
           className="mb-[5px] rounded-full transition-all duration-300"
           style={{
